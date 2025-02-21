@@ -1,0 +1,4 @@
+{
+  "$schema": "https://aka.ms/CsWin32.schema.json",
+  "allowMarshaling": false // Disables managed wrapper interfaces, the native methods are good enough
+}

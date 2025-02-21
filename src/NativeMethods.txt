@@ -1,0 +1,3 @@
+D3D11CreateDevice
+IDXGIResource1
+IID_IDXGIResource1
