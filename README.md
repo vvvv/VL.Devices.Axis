@@ -1,7 +1,8 @@
 # VL.Devices.Axis
 
-`nuget install VideoLAN.LibVLC.Windows -pre -version 4.0.0-alpha-20250220`
-`nuget install LibVLCSharp -pre -version 4.0.0-alpha-20250220-8602 -source https://f.feedz.io/videolan/preview/nuget/index.json`
+When running as source package, make sure the following packages are installed
+- `nuget install VideoLAN.LibVLC.Windows -pre -version 4.0.0-alpha-20250220`
+- `nuget install LibVLCSharp -pre -version 4.0.0-alpha-20250220-8602 -source https://f.feedz.io/videolan/preview/nuget/index.json`
 
 - [ ] A clear and concise description of what this package is and does, also what problem it solves.
 - [ ] In case this is a wrapper, links to original code and which version of it is used
