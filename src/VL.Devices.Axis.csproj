@@ -5,6 +5,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputPath>..\lib</OutputPath>
+    <Description>Support for network cameras by Axis</Description>
+    <PackageTags>rtsp;videoin;ip;camera;stream</PackageTags>
+    <PackageReadmeFile>..\README.md</PackageReadmeFile>
+    <PackageIconUrl>..\icon\nugeticon.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/vvvv/VL.Devices.Axis</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vvvv/VL.Devices.Axis.git</RepositoryUrl>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+    <Authors>vvvv</Authors>
     <Version>0.0.1-alpha</Version>
   </PropertyGroup>
 
