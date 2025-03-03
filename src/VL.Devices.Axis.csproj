@@ -7,8 +7,8 @@
     <OutputPath>..\lib</OutputPath>
     <Description>Support for network cameras by Axis</Description>
     <PackageTags>rtsp;videoin;ip;camera;stream</PackageTags>
-    <PackageReadmeFile>..\README.md</PackageReadmeFile>
-    <PackageIconUrl>..\icon\nugeticon.png</PackageIconUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIconUrl>nugeticon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/vvvv/VL.Devices.Axis</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vvvv/VL.Devices.Axis.git</RepositoryUrl>
     <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
@@ -35,10 +35,8 @@
       <Pack>true</Pack>
       <PackagePath>%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
     </None>
-	  <None Include="..\README.md">
-		  <Pack>true</Pack>
-		  <PackagePath>%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
-	  </None>  
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\icon\nugeticon.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
