@@ -26,6 +26,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
     private readonly ID3D11DeviceContext* deviceContext;
     private string? url;
     private int changeTicket;
+    private bool isDisposed;
 
     public VideoIn([Pin(Visibility = PinVisibility.Optional)] NodeContext nodeContext)
     {
@@ -44,8 +45,11 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
         this.deviceContext = deviceContext;
     }
 
-    public IVideoSource2 Update(string url)
+    public IVideoSource2? Update(string url)
     {
+        if (isDisposed)
+            return null;
+
         if (url != this.url)
         {
             this.url = url;
@@ -58,7 +62,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
     IVideoPlayer? IVideoSource2.Start(VideoPlaybackContext ctx)
     {
-        if (url is null)
+        if (url is null || isDisposed)
             return null;
 
         return new Acquisition(ctx, url, logger, device, deviceContext);
@@ -66,6 +70,11 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
     void IDisposable.Dispose()
     {
+        if (isDisposed)
+            return;
+
+        isDisposed = true;
+        changeTicket++; // Enforce the sink to re-subscribe
         deviceContext->Release();
         device->Release();
     }
