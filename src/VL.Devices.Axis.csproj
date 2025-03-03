@@ -35,6 +35,10 @@
       <Pack>true</Pack>
       <PackagePath>%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
     </None>
+	  <None Include="..\README.md">
+		  <Pack>true</Pack>
+		  <PackagePath>%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+	  </None>  
   </ItemGroup>
 
 </Project>
