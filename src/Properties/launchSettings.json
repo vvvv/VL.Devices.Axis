@@ -2,8 +2,8 @@
   "profiles": {
     "vvvv": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\vvvv\\vvvv_gamma_7.0-0164-gff1c9921da-win-x64\\vvvv.exe",
-      "commandLineArgs": "--package-repositories C:\\Users\\elias\\source\\repos --editable-packages VL.Devices.Axis -o C:\\Users\\elias\\source\\repos\\VL.Devices.Axis\\VL.Devices.Axis.vl --stoppedonstartup"
+      "executablePath": "C:\\Program Files\\vvvv\\vvvv_gamma_7.0-0187-g60847059e1-win-x64\\vvvv.exe",
+      "commandLineArgs": "--package-repositories C:\\Users\\elias\\source\\repos --editable-packages VL.Devices.Axis -o \"C:\\Users\\elias\\source\\repos\\VL.Devices.Axis\\help\\Explanation Overview.vl\" --stoppedonstartup"
     }
   }
 }
