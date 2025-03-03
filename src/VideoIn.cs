@@ -26,7 +26,9 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
     private readonly ID3D11DeviceContext* deviceContext;
     private string? url;
     private int changeTicket;
+    private bool enabled;
     private bool isDisposed;
+    private Acquisition? acquisition;
 
     public VideoIn([Pin(Visibility = PinVisibility.Optional)] NodeContext nodeContext)
     {
@@ -45,27 +47,79 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
         this.deviceContext = deviceContext;
     }
 
-    public IVideoSource2? Update(string url)
+    public IVideoSource2? Update(string url, bool enabled = true)
     {
         if (isDisposed)
             return null;
 
-        if (url != this.url)
+        if (url != this.url || enabled != this.enabled)
         {
             this.url = url;
+            this.enabled = enabled;
+            this.acquisition = null;
             changeTicket++;
         }
+
         return this;
+    }
+
+    public bool IsPlaying => acquisition?.Player.IsPlaying ?? false;
+
+    /// <summary>
+    /// <inheritdoc cref="MediaPlayer.State"/>
+    /// </summary>
+    public VLCState State => acquisition?.Player.State ?? VLCState.Stopped;
+
+    /// <summary>
+    /// The stream time in seconds.
+    /// </summary>
+    public float Time
+    {
+        get
+        {
+            var player = acquisition?.Player;
+            if (player is null)
+                return default;
+            return (float)TimeSpan.FromMilliseconds(player.Time).TotalSeconds;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc cref="MediaPlayer.Position"/>
+    /// </summary>
+    public float Position
+    {
+        get
+        {
+            var player = acquisition?.Player;
+            if (player is null)
+                return default;
+            return (float)player.Position;
+        }
+    }
+
+    /// <summary>
+    /// The stream length in seconds.
+    /// </summary>
+    public float Length
+    {
+        get
+        {
+            var player = acquisition?.Player;
+            if (player is null)
+                return default;
+            return (float)TimeSpan.FromMilliseconds(player.Length).TotalSeconds;
+        }
     }
 
     int IVideoSource2.ChangedTicket => changeTicket;
 
     IVideoPlayer? IVideoSource2.Start(VideoPlaybackContext ctx)
     {
-        if (url is null || isDisposed)
+        if (url is null || isDisposed || !enabled)
             return null;
 
-        return new Acquisition(ctx, url, logger, device, deviceContext);
+        return acquisition = new Acquisition(ctx, url, logger, device, deviceContext);
     }
 
     void IDisposable.Dispose()
@@ -127,6 +181,8 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
                 return new Media(url, type: FromType.FromPath);
             }
         }
+
+        public MediaPlayer Player => mediaPlayer;
 
         void IDisposable.Dispose()
         {
