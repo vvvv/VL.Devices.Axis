@@ -10,6 +10,8 @@ internal unsafe class PooledTexture : IDisposable
     public required TexturePool Pool { get; init; }
     public required ID3D11Texture2D* Texture { get; init; }
     public required ID3D11RenderTargetView* RTV { get; init; }
+    public VideoTexture? AssociatedVideoTexture { get; set; }
+    public ID3D11Texture2D* TextureOnMainDevice { get; set; }
 
     public D3D11_TEXTURE2D_DESC Description => Pool.Description;
 
@@ -20,6 +22,9 @@ internal unsafe class PooledTexture : IDisposable
 
     public void Dispose()
     {
+        AssociatedVideoTexture?.Dispose();
+        if (TextureOnMainDevice != null)
+            TextureOnMainDevice->Release();
         RTV->Release();
         Texture->Release();
     }
@@ -42,10 +47,13 @@ internal unsafe sealed class TexturePool : IDisposable
 
     public D3D11_TEXTURE2D_DESC Description => _description;
 
-    public PooledTexture Rent()
+    public PooledTexture? Rent()
     {
         lock (pool)
         {
+            if (isDisposed)
+                return null;
+
             if (pool.Count > 0)
             {
                 var surface = pool.Pop();
@@ -98,11 +106,14 @@ internal unsafe sealed class TexturePool : IDisposable
 
     public void Dispose()
     {
-        if (!isDisposed)
+        lock (pool)
         {
-            isDisposed = true;
-            Recycle();
-            _device->Release();
+            if (!isDisposed)
+            {
+                isDisposed = true;
+                Recycle();
+                _device->Release();
+            }
         }
     }
 }

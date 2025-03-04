@@ -187,6 +187,8 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
             {
                 videoPlayer.acquisition = null;
                 frames.CompleteAdding();
+                mediaPlayer.StopAsync().Wait();
+                texturePool?.Dispose();
                 mediaPlayer.Dispose();
                 libVLC.Dispose();
             }
@@ -197,27 +199,32 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
             if (!frames.TryTake(out var pooledTexture, millisecondsTimeout: 1000))
                 return null;
 
-            // Retrieve the shared handle
-            HANDLE sharedHandle;
+            if (pooledTexture.AssociatedVideoTexture is null)
             {
-                pooledTexture.Texture->QueryInterface<IDXGIResource>(out var sharedResource);
-                sharedResource->GetSharedHandle(&sharedHandle);
-                sharedResource->Release();
+                // Retrieve the shared handle
+                HANDLE sharedHandle;
+                {
+                    pooledTexture.Texture->QueryInterface<IDXGIResource>(out var sharedResource);
+                    sharedResource->GetSharedHandle(&sharedHandle);
+                    sharedResource->Release();
+                }
+
+                // Open on D3D11 device of vvvv
+                ID3D11Texture2D* texture;
+                {
+                    ID3D11Resource* sharedResource;
+                    Guid iid = ID3D11Resource.IID_Guid;
+                    vvvvDevice->OpenSharedResource(sharedHandle, &iid, (void**)&sharedResource);
+                    sharedResource->QueryInterface(out texture);
+                    sharedResource->Release();
+                }
+
+                var desc = pooledTexture.Description;
+                pooledTexture.TextureOnMainDevice = texture;
+                pooledTexture.AssociatedVideoTexture = new VideoTexture((nint)texture, (int)desc.Width, (int)desc.Height, ToPixelFormat(desc.Format));
             }
 
-            // Open on D3D11 device of vvvv
-            ID3D11Texture2D* texture;
-            {
-                ID3D11Resource* sharedResource;
-                Guid iid = ID3D11Resource.IID_Guid;
-                vvvvDevice->OpenSharedResource(sharedHandle, &iid, (void**)&sharedResource);
-                sharedResource->QueryInterface(out texture);
-                sharedResource->Release();
-            }
-
-            var desc = pooledTexture.Description;
-            var videoTexture = new VideoTexture((nint)texture, (int)desc.Width, (int)desc.Height, ToPixelFormat(desc.Format));
-            return ResourceProvider.Return(new GpuVideoFrame<BgraPixel>(videoTexture), pooledTexture, t => t.Recycle());
+            return ResourceProvider.Return(new GpuVideoFrame<BgraPixel>(pooledTexture.AssociatedVideoTexture), pooledTexture, t => t.Recycle());
 
             static PixelFormat ToPixelFormat(DXGI_FORMAT format)
             {
@@ -238,17 +245,17 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
         bool OutputSetup(ref IntPtr opaque, SetupDeviceConfig* config, ref SetupDeviceInfo setup)
         {
             setup.D3D11.DeviceContext = deviceContext;
-            deviceContext->AddRef();
+            //deviceContext->AddRef();
             return true;
         }
 
+        // TODO: Figure out why this callback is not always called
         void OutputCleanup(IntPtr opaque)
         {
             // here we can release all things Direct3D11 for good (if playing only one file)
             texturePool?.Dispose();
             texturePool = null;
-
-            deviceContext->Release();
+            //deviceContext->Release();
         }
 
         void OutputSetResize(IntPtr opaque, ReportSizeChange report_size_change, IntPtr report_opaque)
@@ -307,8 +314,15 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
             deviceContext->Flush();
 
-            if (!frames.TryAdd(texture))
-                texture.Recycle();
+            try
+            {
+                if (!frames.TryAdd(texture))
+                    texture.Recycle();
+            }
+            catch (InvalidOperationException)
+            {
+                texture.Dispose();
+            }
         }
 
         bool StartRendering(IntPtr opaque, bool enter)
