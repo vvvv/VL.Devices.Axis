@@ -38,7 +38,7 @@
               <Choice Kind="ProcessAppFlag" Name="TextureWindow" />
             </p:NodeReference>
             <Pin Id="HhfmpyS3oJVLYHR5kOI5U4" Name="Node Context" Kind="InputPin" IsHidden="true" />
-            <Pin Id="M5T4qf6X7DXQZ02NxZ21VQ" Name="Bounds" Kind="InputPin" DefaultValue="1124, 79, 677, 364" IsHidden="true" />
+            <Pin Id="M5T4qf6X7DXQZ02NxZ21VQ" Name="Bounds" Kind="InputPin" DefaultValue="44, 131, 677, 364" IsHidden="true" />
             <Pin Id="IGUUBY1SdDZNLyYxoJSoGV" Name="Save Bounds" Kind="InputPin" IsHidden="true" />
             <Pin Id="EwxULr9lZggM4QbjNOXcDl" Name="Back Buffer Format" Kind="InputPin" IsHidden="true" />
             <Pin Id="GmxmbSrwNmpOYPFSfDODPT" Name="Bound to Document" Kind="InputPin" IsHidden="true" />
