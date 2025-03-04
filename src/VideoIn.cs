@@ -21,6 +21,7 @@ namespace VL.Devices.Axis;
 [SupportedOSPlatform("windows7.0")]
 public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 {
+    private readonly object syncObject = new object();
     private readonly ILogger logger;
     private readonly ID3D11Device* device;
     private readonly ID3D11DeviceContext* deviceContext;
@@ -60,57 +61,51 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
             changeTicket++;
         }
 
+        lock (syncObject)
+        {
+            var player = acquisition?.Player;
+            if (player != null)
+            {
+                IsPlaying = player.IsPlaying;
+                State = player.State;
+                Time = (float)TimeSpan.FromMilliseconds(player.Time).TotalSeconds;
+                Position = (float)player.Position;
+                Length = (float)TimeSpan.FromMilliseconds(player.Length).TotalSeconds;
+            }
+            else
+            {
+                IsPlaying = false;
+                State = VLCState.Stopped;
+                Time = default;
+                Position = default;
+                Length = default;
+            }
+        }
+
         return this;
     }
 
-    public bool IsPlaying => acquisition?.Player.IsPlaying ?? false;
+    public bool IsPlaying { get; private set; }
 
     /// <summary>
     /// <inheritdoc cref="MediaPlayer.State"/>
     /// </summary>
-    public VLCState State => acquisition?.Player.State ?? VLCState.Stopped;
+    public VLCState State { get; private set; }
 
     /// <summary>
     /// The stream time in seconds.
     /// </summary>
-    public float Time
-    {
-        get
-        {
-            var player = acquisition?.Player;
-            if (player is null)
-                return default;
-            return (float)TimeSpan.FromMilliseconds(player.Time).TotalSeconds;
-        }
-    }
+    public float Time { get; private set; }
 
     /// <summary>
     /// <inheritdoc cref="MediaPlayer.Position"/>
     /// </summary>
-    public float Position
-    {
-        get
-        {
-            var player = acquisition?.Player;
-            if (player is null)
-                return default;
-            return (float)player.Position;
-        }
-    }
+    public float Position { get; private set; }
 
     /// <summary>
     /// The stream length in seconds.
     /// </summary>
-    public float Length
-    {
-        get
-        {
-            var player = acquisition?.Player;
-            if (player is null)
-                return default;
-            return (float)TimeSpan.FromMilliseconds(player.Length).TotalSeconds;
-        }
-    }
+    public float Length { get; private set; }
 
     int IVideoSource2.ChangedTicket => changeTicket;
 
@@ -119,7 +114,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
         if (url is null || isDisposed || !enabled)
             return null;
 
-        return acquisition = new Acquisition(ctx, url, logger, device, deviceContext);
+        return acquisition = new Acquisition(this, ctx, url, logger, device, deviceContext);
     }
 
     void IDisposable.Dispose()
@@ -135,6 +130,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
     private class Acquisition : IVideoPlayer
     {
+        private readonly VideoIn videoPlayer;
         private readonly VideoPlaybackContext ctx;
         private readonly string url;
         private readonly LibVLC libVLC;
@@ -146,8 +142,9 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
         private TexturePool? texturePool;
 
-        public Acquisition(VideoPlaybackContext ctx, string url, ILogger logger, ID3D11Device* device, ID3D11DeviceContext* deviceContext)
+        public Acquisition(VideoIn videoPlayer, VideoPlaybackContext ctx, string url, ILogger logger, ID3D11Device* device, ID3D11DeviceContext* deviceContext)
         {
+            this.videoPlayer = videoPlayer;
             this.ctx = ctx;
             this.url = url;
             this.device = device;
@@ -186,9 +183,13 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
         void IDisposable.Dispose()
         {
-            frames.CompleteAdding();
-            mediaPlayer.Dispose();
-            libVLC.Dispose();
+            lock (videoPlayer.syncObject)
+            {
+                videoPlayer.acquisition = null;
+                frames.CompleteAdding();
+                mediaPlayer.Dispose();
+                libVLC.Dispose();
+            }
         }
 
         IResourceProvider<VideoFrame>? IVideoPlayer.GrabVideoFrame()
