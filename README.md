@@ -4,7 +4,7 @@ Support for [network cameras](https://www.axis.com/products/network-cameras) by 
 
 [VAPIX®](https://developer.axis.com/vapix/), the API's for cameras by Axis are vast. This NuGet only wraps a fraction of those for convenient use. If you need support for a specific API, it can most likely be added without too much effort. 
 
-Currently only supports choosing a streams resolution.
+Currently only supports choosing a streams resolution, fps and toggle the IRCut filter.
 
 For use with vvvv, the visual live-programming environment for .NET: http://vvvv.org
 

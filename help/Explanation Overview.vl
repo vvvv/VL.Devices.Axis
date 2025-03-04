@@ -58,7 +58,7 @@
             <Pin Id="HH3xMctZ2WRQS7R1RnKwS8" Name="Input Source" Kind="OutputPin" />
             <Pin Id="MOfFTg0w8ePQIwN5HKRLk1" Name="Back Buffer" Kind="OutputPin" IsHidden="true" />
           </Node>
-          <Node Bounds="218,280,125,19" Id="TdzEDA4qZpEL624eRsiq7H">
+          <Node Bounds="218,280,145,19" Id="TdzEDA4qZpEL624eRsiq7H">
             <p:NodeReference LastCategoryFullName="Devices.Axis" LastDependency="VL.Devices.Axis.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="VideoIn" />
@@ -75,7 +75,9 @@
             <Pin Id="O0Dlaq6psziLqo0Rb96wuk" Name="Image Format" Kind="InputPin" />
             <Pin Id="NCgU3yGcsKkOh8k4tPgu7r" Name="Resolution" Kind="InputPin" />
             <Pin Id="TsaV7VA16ilNsRdmcmAHTQ" Name="FPS" Kind="InputPin" />
+            <Pin Id="EQKUIISN7O4M4tbvP2K3wG" Name="IRCut filter" Kind="InputPin" />
             <Pin Id="BNl4XWZE198LVG55R6eMbi" Name="Enabled" Kind="InputPin" />
+            <Pin Id="NyQ6BVI4gq5MmUKFWLCTqn" Name="State" Kind="OutputPin" />
           </Node>
           <Pad Id="ROaylua6zE7QFlO2dGf5BB" Comment="Username" Bounds="240,151,35,15" ShowValueBox="true" isIOBox="true" Value="root">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
@@ -89,22 +91,22 @@
           </Pad>
           <Pad Id="PjK5uzHtgpsLZFHop81TNB" Comment="Product Name" Bounds="260,351,171,15" ShowValueBox="true" isIOBox="true" />
           <Pad Id="DP381mkxTX1O6jQMc3ZsaU" Comment="Serial Number" Bounds="300,321,91,15" ShowValueBox="true" isIOBox="true" />
-          <Pad Id="VerFlb81w14NbzgE2uBKrZ" Comment="Resolution" Bounds="409,171,76,15" ShowValueBox="true" isIOBox="true" Value="1024x768">
+          <Pad Id="VerFlb81w14NbzgE2uBKrZ" Comment="Resolution" Bounds="406,141,76,15" ShowValueBox="true" isIOBox="true" Value="1024x768">
             <p:TypeAnnotation LastCategoryFullName="VL.Devices.Axis" LastDependency="VL.Devices.Axis.vl">
               <Choice Kind="TypeFlag" Name="ImageResolutionEnum" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="Ijec7L0BauqMQtDIW4yze1" Comment="Image Format" Bounds="410,151,55,15" ShowValueBox="true" isIOBox="true" Value="h264">
+          <Pad Id="Ijec7L0BauqMQtDIW4yze1" Comment="Image Format" Bounds="406,121,55,15" ShowValueBox="true" isIOBox="true" Value="h264">
             <p:TypeAnnotation LastCategoryFullName="VL.Devices.Axis" LastDependency="VL.Devices.Axis.vl">
               <Choice Kind="TypeFlag" Name="ImageFormatEnum" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="KcFMhLN85fWLwomxO0KRRU" Comment="FPS" Bounds="409,191,35,15" ShowValueBox="true" isIOBox="true" Value="0">
+          <Pad Id="KcFMhLN85fWLwomxO0KRRU" Comment="FPS" Bounds="406,161,35,15" ShowValueBox="true" isIOBox="true" Value="0">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="Integer32" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="TFLLUam1QY9NDvOQz64nqx" Bounds="478,188,112,19" ShowValueBox="true" isIOBox="true" Value="&lt; 0 for maximum">
+          <Pad Id="TFLLUam1QY9NDvOQz64nqx" Bounds="478,158,112,19" ShowValueBox="true" isIOBox="true" Value="&lt; 0 for maximum">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
@@ -130,6 +132,14 @@
               <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Toggle</p:buttonmode>
             </p:ValueBoxSettings>
           </Pad>
+          <Pad Id="GDoHR97kBS8MAlybWD5yaQ" Comment="IRCut filter" Bounds="406,190,35,35" ShowValueBox="true" isIOBox="true" Value="True">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="ImmutableTypeFlag" Name="Boolean" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Toggle</p:buttonmode>
+            </p:ValueBoxSettings>
+          </Pad>
         </Canvas>
         <Patch Id="MZsOfivbohPQd3B3jLaS4k" Name="Create" />
         <Patch Id="Da1rFoIeoaTP3VMwwACitz" Name="Update" />
@@ -148,10 +158,11 @@
         <Link Id="BkgJIJL9KUlOaFASxddrty" Ids="Ijec7L0BauqMQtDIW4yze1,O0Dlaq6psziLqo0Rb96wuk" />
         <Link Id="MLdmk6YZkqVNThHnOA8MmS" Ids="KcFMhLN85fWLwomxO0KRRU,TsaV7VA16ilNsRdmcmAHTQ" />
         <Link Id="TpBlUeqSFenPV25MjBlovh" Ids="Kj9sAIvBKd0OxXXsI05jWP,BNl4XWZE198LVG55R6eMbi" />
+        <Link Id="IXadW2B5IXUL5h2gel8OdJ" Ids="GDoHR97kBS8MAlybWD5yaQ,EQKUIISN7O4M4tbvP2K3wG" />
       </Patch>
     </Node>
   </Patch>
   <NugetDependency Id="QB2RXN9VJu5Og7vYmzlGhP" Location="VL.Skia" Version="2025.7.0-0200-g4a7221ecd9" />
   <NugetDependency Id="StA82QOasIZPTJdsdSYl5d" Location="VL.Stride" Version="2025.7.0-0200-g4a7221ecd9" />
-  <NugetDependency Id="IaaCBrqBoE9N8fiaox0apm" Location="VL.Devices.Axis" Version="0.0.0" />
+  <NugetDependency Id="IaaCBrqBoE9N8fiaox0apm" Location="VL.Devices.Axis" Version="0.0.2-alpha" />
 </Document>
