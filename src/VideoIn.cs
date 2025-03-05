@@ -167,7 +167,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
 
 
             using var media = CreateMedia(url);
-            mediaPlayer = new MediaPlayer(libVLC, media);
+            mediaPlayer = new MyMediaPlayer(libVLC, media);
             mediaPlayer.SetOutputCallbacks(VideoEngine.D3D11, OutputSetup, OutputCleanup, OutputSetResize, UpdateOuput, Swap, StartRendering, null, null, SelectPlane);
             mediaPlayer.Play();
 
@@ -187,8 +187,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
             {
                 videoPlayer.acquisition = null;
                 frames.CompleteAdding();
-                mediaPlayer.StopAsync().Wait();
-                texturePool?.Dispose();
+                mediaPlayer.Stop();
                 mediaPlayer.Dispose();
                 libVLC.Dispose();
             }
