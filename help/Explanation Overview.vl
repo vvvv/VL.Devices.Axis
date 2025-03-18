@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="P0VG1l3mEu6OzOpWgmZYGe" LanguageVersion="2025.7.0-0200-g4a7221ecd9" Version="0.128">
-  <NugetDependency Id="QABK1R86dwmOiVZjoNgMPB" Location="VL.CoreLib" Version="2025.7.0-0200-g4a7221ecd9" />
+<Document xmlns:p="property" xmlns:r="reflection" Id="P0VG1l3mEu6OzOpWgmZYGe" LanguageVersion="2025.7.0-0253-g169ec5ff92" Version="0.128">
+  <NugetDependency Id="QABK1R86dwmOiVZjoNgMPB" Location="VL.CoreLib" Version="2025.7.0-0253-g169ec5ff92" />
   <Patch Id="B55ECxjCXvCMUki1IdParZ">
     <Canvas Id="Ta45f6NPTbeO1YferTMONQ" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
     <!--
@@ -38,7 +38,7 @@
               <Choice Kind="ProcessAppFlag" Name="TextureWindow" />
             </p:NodeReference>
             <Pin Id="HhfmpyS3oJVLYHR5kOI5U4" Name="Node Context" Kind="InputPin" IsHidden="true" />
-            <Pin Id="M5T4qf6X7DXQZ02NxZ21VQ" Name="Bounds" Kind="InputPin" DefaultValue="44, 131, 677, 364" IsHidden="true" />
+            <Pin Id="M5T4qf6X7DXQZ02NxZ21VQ" Name="Bounds" Kind="InputPin" DefaultValue="1142, 124, 677, 364" IsHidden="true" />
             <Pin Id="IGUUBY1SdDZNLyYxoJSoGV" Name="Save Bounds" Kind="InputPin" IsHidden="true" />
             <Pin Id="EwxULr9lZggM4QbjNOXcDl" Name="Back Buffer Format" Kind="InputPin" IsHidden="true" />
             <Pin Id="GmxmbSrwNmpOYPFSfDODPT" Name="Bound to Document" Kind="InputPin" IsHidden="true" />
@@ -79,24 +79,24 @@
             <Pin Id="BNl4XWZE198LVG55R6eMbi" Name="Enabled" Kind="InputPin" />
             <Pin Id="NyQ6BVI4gq5MmUKFWLCTqn" Name="State" Kind="OutputPin" />
           </Node>
-          <Pad Id="ROaylua6zE7QFlO2dGf5BB" Comment="Username" Bounds="240,151,35,15" ShowValueBox="true" isIOBox="true" Value="root">
+          <Pad Id="ROaylua6zE7QFlO2dGf5BB" Comment="Username" Bounds="240,151,35,15" ShowValueBox="true" isIOBox="true" Value="">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="NU1xwgCX67zMGsymak60mR" Comment="Password" Bounds="260,181,35,15" ShowValueBox="true" isIOBox="true" Value="1234">
+          <Pad Id="NU1xwgCX67zMGsymak60mR" Comment="Password" Bounds="260,181,35,15" ShowValueBox="true" isIOBox="true" Value="">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="PjK5uzHtgpsLZFHop81TNB" Comment="Product Name" Bounds="260,351,171,15" ShowValueBox="true" isIOBox="true" />
-          <Pad Id="DP381mkxTX1O6jQMc3ZsaU" Comment="Serial Number" Bounds="300,321,91,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="PjK5uzHtgpsLZFHop81TNB" Comment="Product Name" Bounds="255,351,171,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="DP381mkxTX1O6jQMc3ZsaU" Comment="Serial Number" Bounds="290,321,91,15" ShowValueBox="true" isIOBox="true" />
           <Pad Id="VerFlb81w14NbzgE2uBKrZ" Comment="Resolution" Bounds="406,141,76,15" ShowValueBox="true" isIOBox="true" Value="1024x768">
             <p:TypeAnnotation LastCategoryFullName="VL.Devices.Axis" LastDependency="VL.Devices.Axis.vl">
               <Choice Kind="TypeFlag" Name="ImageResolutionEnum" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="Ijec7L0BauqMQtDIW4yze1" Comment="Image Format" Bounds="406,121,55,15" ShowValueBox="true" isIOBox="true" Value="h264">
+          <Pad Id="Ijec7L0BauqMQtDIW4yze1" Comment="Image Format" Bounds="406,121,55,15" ShowValueBox="true" isIOBox="true" Value="h265">
             <p:TypeAnnotation LastCategoryFullName="VL.Devices.Axis" LastDependency="VL.Devices.Axis.vl">
               <Choice Kind="TypeFlag" Name="ImageFormatEnum" />
             </p:TypeAnnotation>
@@ -106,7 +106,7 @@
               <Choice Kind="TypeFlag" Name="Integer32" />
             </p:TypeAnnotation>
           </Pad>
-          <Pad Id="TFLLUam1QY9NDvOQz64nqx" Bounds="478,158,112,19" ShowValueBox="true" isIOBox="true" Value="&lt; 0 for maximum">
+          <Pad Id="TFLLUam1QY9NDvOQz64nqx" Bounds="497,159,112,19" ShowValueBox="true" isIOBox="true" Value="&lt; 0 for maximum">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
@@ -115,7 +115,7 @@
               <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
             </p:ValueBoxSettings>
           </Pad>
-          <Pad Id="E75qX6n0Y4BNASwEDC5dvB" Bounds="516,233,218,41" ShowValueBox="true" isIOBox="true" Value="&lt; Re-Enable in case camera was not available when the app started">
+          <Pad Id="E75qX6n0Y4BNASwEDC5dvB" Bounds="497,240,218,41" ShowValueBox="true" isIOBox="true" Value="&lt; Re-Enable in case camera was not available when the app started">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
@@ -162,7 +162,7 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="QB2RXN9VJu5Og7vYmzlGhP" Location="VL.Skia" Version="2025.7.0-0200-g4a7221ecd9" />
-  <NugetDependency Id="StA82QOasIZPTJdsdSYl5d" Location="VL.Stride" Version="2025.7.0-0200-g4a7221ecd9" />
+  <NugetDependency Id="QB2RXN9VJu5Og7vYmzlGhP" Location="VL.Skia" Version="2025.7.0-0253-g169ec5ff92" />
+  <NugetDependency Id="StA82QOasIZPTJdsdSYl5d" Location="VL.Stride" Version="2025.7.0-0253-g169ec5ff92" />
   <NugetDependency Id="IaaCBrqBoE9N8fiaox0apm" Location="VL.Devices.Axis" Version="0.0.2-alpha" />
 </Document>

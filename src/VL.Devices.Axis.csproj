@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/vvvv/VL.Devices.Axis.git</RepositoryUrl>
     <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
     <Authors>vvvv</Authors>
-    <Version>0.0.6-alpha</Version>
+    <Version>0.0.7-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
