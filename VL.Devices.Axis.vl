@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="EWHWcwf3oBvPnhn254YyBa" LanguageVersion="2025.7.0-0200-g4a7221ecd9" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="EWHWcwf3oBvPnhn254YyBa" LanguageVersion="2025.7.0-0253-g169ec5ff92" Version="0.128">
   <Patch Id="Rgz0iK0cdl5O6XLZAnSI2k">
     <Canvas Id="EtMz6eWyJpjMOVOROl6714" DefaultCategory="Devices.Axis" CanvasType="FullCategory">
       <!--
@@ -1058,12 +1058,12 @@
             <ControlPoint Id="HfqSDop0klKMSc1kely92T" Bounds="574,400" />
             <ControlPoint Id="K4zwnWnqF2FL5sPs0ZtnQl" Bounds="594,421" />
             <ControlPoint Id="CvNyA1Xeg1WNvEgwHSM011" Bounds="614,511" />
-            <ControlPoint Id="PUNqQcxd3oQLiaWoqBShYU" Bounds="599,710" />
+            <ControlPoint Id="PUNqQcxd3oQLiaWoqBShYU" Bounds="599,730" />
             <ControlPoint Id="Vpemk8nXHtSMeFxOSscM19" Bounds="614,440" />
             <ControlPoint Id="VzDMhkqXVaGOhFfTaso0zs" Bounds="288,330" />
             <ControlPoint Id="TVIdtkjfnqOO9V9OfUmma0" Bounds="328,340" />
             <ControlPoint Id="IO4iOwPxJBDMdASL5FIvGZ" Bounds="534,360" />
-            <Node Bounds="540,545,132,151" Id="Lbv4FdTUYXtQYNiYYtc0oU">
+            <Node Bounds="540,545,144,166" Id="Lbv4FdTUYXtQYNiYYtc0oU">
               <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -1086,18 +1086,39 @@
                   <Pin Id="EtFjzG9ZC0kNJbTmt4Mb24" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="HNrGbNeNXJmLB5vcTxy2nV" Name="Data" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="597,640,63,26" Id="P15acajR9gzMA1vpCTz4Jy">
-                  <p:NodeReference LastCategoryFullName="System.XML" LastDependency="VL.CoreLib.vl">
-                    <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-                    <Choice Kind="OperationCallFlag" Name="ParseJSON" />
+                <Node Bounds="585,605,87,86" Id="L1FyXD9zeqJL0WGudCFVIB">
+                  <p:NodeReference LastCategoryFullName="Control" LastDependency="VL.CoreLib.vl">
+                    <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
+                    <CategoryReference Kind="Category" Name="Control" />
+                    <Choice Kind="ProcessAppFlag" Name="Try" />
                   </p:NodeReference>
-                  <Pin Id="P2QKu6BJVtHOgT6d8x9w7J" Name="Input" Kind="InputPin" />
-                  <Pin Id="Jgd2RhVMJpnNSTj5XzDzTo" Name="Deserialize Root Element Name" Kind="InputPin" DefaultValue="r" />
-                  <Pin Id="VZY9vY8z9tMLEJ57z7QdsY" Name="Write Array Attribute" Kind="InputPin" />
-                  <Pin Id="RzGympV5gDqLiCLHtZmAaQ" Name="Result" Kind="OutputPin" />
+                  <Pin Id="PS7sfByoqM4Mg73BgOkq35" Name="Node Context" Kind="InputPin" IsHidden="true" />
+                  <Pin Id="QMu3Euz12EvMoJCz4LYDXt" Name="User Exceptions Channel" Kind="InputPin" IsHidden="true" />
+                  <Pin Id="QcIpFJeErVoOYjw3rS8GUm" Name="Stick To Last Valid Outputs" Kind="InputPin" />
+                  <Pin Id="TsUfyOxdod1McutJWhNAai" Name="Reset Region On Failure" Kind="InputPin" />
+                  <Pin Id="TwxwcsMh52eMqC7ds3BMVP" Name="Success" Kind="OutputPin" />
+                  <Pin Id="ETtMzPM5WM3OarUw3W8hyg" Name="Failure" Kind="OutputPin" />
+                  <Pin Id="GFN8J6jnowLOUbsYwlTXfE" Name="Error Message" Kind="OutputPin" />
+                  <Pin Id="FcAZfzpXnIINVmhXHl92lO" Name="Exceptions" Kind="OutputPin" />
+                  <Patch Id="QCV6yJJiX6CNPsPVwvoec6" ManuallySortedPins="true">
+                    <Patch Id="LaYjZSdDIxRQcgzFKPJxta" Name="Create" ManuallySortedPins="true" />
+                    <Patch Id="GaCR4rKgWqKOhki3vLemSV" Name="Update" ManuallySortedPins="true" />
+                    <Patch Id="TomtiwYWcUtLDTIEgDXQVw" Name="Dispose" ManuallySortedPins="true" />
+                    <Node Bounds="597,640,63,26" Id="P15acajR9gzMA1vpCTz4Jy">
+                      <p:NodeReference LastCategoryFullName="System.XML" LastDependency="VL.CoreLib.vl">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <Choice Kind="OperationCallFlag" Name="ParseJSON" />
+                      </p:NodeReference>
+                      <Pin Id="P2QKu6BJVtHOgT6d8x9w7J" Name="Input" Kind="InputPin" />
+                      <Pin Id="Jgd2RhVMJpnNSTj5XzDzTo" Name="Deserialize Root Element Name" Kind="InputPin" DefaultValue="r" />
+                      <Pin Id="VZY9vY8z9tMLEJ57z7QdsY" Name="Write Array Attribute" Kind="InputPin" />
+                      <Pin Id="RzGympV5gDqLiCLHtZmAaQ" Name="Result" Kind="OutputPin" />
+                    </Node>
+                  </Patch>
+                  <ControlPoint Id="MYaoFtRT3NuL9tJnmFzNP2" Bounds="599,685" Alignment="Bottom" />
                 </Node>
               </Patch>
-              <ControlPoint Id="JWJetTlSoY3LdlIicyL5oc" Bounds="599,690" Alignment="Bottom" />
+              <ControlPoint Id="JWJetTlSoY3LdlIicyL5oc" Bounds="599,705" Alignment="Bottom" />
             </Node>
           </Canvas>
           <Patch Id="OyY48k2NB9GNETre2eY5Qm" Name="Create" />
@@ -1137,7 +1158,8 @@
           <Link Id="NqHiwMu6FnxMg7VlxzHlFQ" Ids="JWJetTlSoY3LdlIicyL5oc,PUNqQcxd3oQLiaWoqBShYU" />
           <Link Id="OXfI4gLBkMqPHXxqoqxJ7u" Ids="K1yslcjYtJxL5XW1eObqmj,QYYeJMrh8xPMYEW3Pai3aB" />
           <Link Id="C3ewhq7gReNMjCoSmIzzvA" Ids="HNrGbNeNXJmLB5vcTxy2nV,P2QKu6BJVtHOgT6d8x9w7J" />
-          <Link Id="BTzVXH7gnrtNAvLLiopRxS" Ids="RzGympV5gDqLiCLHtZmAaQ,JWJetTlSoY3LdlIicyL5oc" />
+          <Link Id="PXZgB7Dwmt6LfnktXrUNbY" Ids="RzGympV5gDqLiCLHtZmAaQ,MYaoFtRT3NuL9tJnmFzNP2" />
+          <Link Id="BdQE2FVWYBmLBqPtzCWVCk" Ids="MYaoFtRT3NuL9tJnmFzNP2,JWJetTlSoY3LdlIicyL5oc" />
         </Patch>
       </Node>
       <!--
@@ -1322,7 +1344,7 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="Ko9OqCOVyY7Pz8mbJrOqb0" Location="VL.CoreLib" Version="2025.7.0-0200-g4a7221ecd9" />
+  <NugetDependency Id="Ko9OqCOVyY7Pz8mbJrOqb0" Location="VL.CoreLib" Version="2025.7.0-0253-g169ec5ff92" />
   <PlatformDependency Id="H2RETTt9AAGNylNnmaaH6V" Location="./lib/net8.0/VL.Devices.Axis.dll" />
   <PlatformDependency Id="NwUgpv6aijdPQOCCcw3Ley" Location="LibVLCSharp.dll" />
 </Document>
