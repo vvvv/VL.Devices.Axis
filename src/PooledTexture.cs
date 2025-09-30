@@ -22,7 +22,6 @@ internal unsafe class PooledTexture : IDisposable
 
     public void Dispose()
     {
-        AssociatedVideoTexture?.Dispose();
         if (TextureOnMainDevice != null)
             TextureOnMainDevice->Release();
         RTV->Release();

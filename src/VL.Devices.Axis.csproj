@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/vvvv/VL.Devices.Axis.git</RepositoryUrl>
     <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
     <Authors>vvvv</Authors>
-    <Version>0.0.8-alpha</Version>
+    <Version>0.0.9-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
       <!-- We locate libvlc from nuget package, for exported app user needs to reference this package in main patch -->
       <ExcludeAssets>build</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="VL.Core" Version="2024.6.7" PrivateAssets="all" />
+    <PackageReference Include="VL.Core" Version="2025.7.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

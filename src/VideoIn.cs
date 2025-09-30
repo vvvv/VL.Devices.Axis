@@ -223,7 +223,7 @@ public unsafe sealed class VideoIn : IVideoSource2, IDisposable
                 pooledTexture.AssociatedVideoTexture = new VideoTexture((nint)texture, (int)desc.Width, (int)desc.Height, ToPixelFormat(desc.Format));
             }
 
-            return ResourceProvider.Return(new GpuVideoFrame<BgraPixel>(pooledTexture.AssociatedVideoTexture), pooledTexture, t => t.Recycle());
+            return ResourceProvider.Return(new GpuVideoFrame<BgraPixel>(pooledTexture.AssociatedVideoTexture.Value), pooledTexture, t => t.Recycle());
 
             static PixelFormat ToPixelFormat(DXGI_FORMAT format)
             {
